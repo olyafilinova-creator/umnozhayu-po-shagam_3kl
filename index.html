@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#27666B">
+  <meta name="description" content="Интерактивный тренажёр по математике для 3 класса: умножение двузначного числа на однозначное с разложением на разрядные слагаемые.">
+  <title>Умножаю по шагам — тренажёр для 3 класса</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="brand-mark" aria-hidden="true">×</div>
+      <div>
+        <div class="brand-name">Умножаю по шагам</div>
+        <div class="brand-desc">Математический тренажёр · 3 класс</div>
+      </div>
+      <div class="header-chip">Без спешки · с пониманием</div>
+    </header>
+
+    <main id="main">
+      <section class="view" id="setup-view" aria-labelledby="setup-title">
+        <div class="intro">
+          <div class="eyebrow">МАТЕМАТИКА · 3 КЛАСС</div>
+          <h1 id="setup-title">Умножаем <span>с пониманием</span></h1>
+          <p class="intro-subtitle">Разложи двузначное число на десятки и единицы, умножь каждую часть и сложи результаты. Выбирай удобный темп — здесь нет таймера.</p>
+        </div>
+        <div class="card setup-card">
+          <div class="section-label"><span class="round-index">1</span><h2>Выбери сложность</h2></div>
+          <div class="level-options" role="radiogroup" aria-label="Уровень сложности">
+            <label class="level-option">
+              <input type="radio" name="difficulty" value="1" checked>
+              <span class="level-content"><span class="level-top"><span class="level-name">Начинаю</span><span class="level-tag">Уровень 1</span></span><span class="level-example">21 × 3</span><span class="level-caption">Произведение единиц — однозначное число, ответ до 100.</span></span>
+            </label>
+            <label class="level-option">
+              <input type="radio" name="difficulty" value="2">
+              <span class="level-content"><span class="level-top"><span class="level-name">Тренируюсь</span><span class="level-tag">Уровень 2</span></span><span class="level-example">26 × 3</span><span class="level-caption">Произведение единиц — двузначное число, ответ до 100.</span></span>
+            </label>
+            <label class="level-option">
+              <input type="radio" name="difficulty" value="3">
+              <span class="level-content"><span class="level-top"><span class="level-name">Могу больше</span><span class="level-tag">Уровень 3</span></span><span class="level-example">35 × 3</span><span class="level-caption">Трёхзначный ответ — от 101 до 150.</span></span>
+            </label>
+          </div>
+          <div class="section-label count-label"><span class="round-index">2</span><h2>Сколько примеров решим?</h2></div>
+          <div class="count-options" role="radiogroup" aria-label="Количество примеров">
+            <label><input type="radio" name="count" value="5"><span>5</span></label>
+            <label><input type="radio" name="count" value="10" checked><span>10</span></label>
+            <label><input type="radio" name="count" value="15"><span>15</span></label>
+            <label><input type="radio" name="count" value="20"><span>20</span></label>
+          </div>
+          <button class="btn btn-primary btn-large" id="start-btn" type="button">Начать тренировку <span aria-hidden="true">→</span></button>
+        </div>
+        <p class="intro-footer">Каждый раз — новый набор примеров. Все ответы не больше 150.</p>
+      </section>
+
+      <section class="view is-hidden" id="exercise-view" aria-labelledby="exercise-title">
+        <div class="exercise-header">
+          <div>
+            <div class="eyebrow">ТРЕНИРОВКА</div>
+            <h1 id="exercise-title">Решаем удобным способом</h1>
+          </div>
+          <span class="session-level" id="session-level">Начинаю</span>
+        </div>
+        <div class="progress-row"><span id="progress-label">Задание 1 из 10</span><span id="progress-percent">0%</span></div>
+        <div class="progress-track" role="progressbar" id="progressbar" aria-label="Прогресс тренировки" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progress-fill"></div></div>
+
+        <div class="card task-card">
+          <div class="task-overline">Заполни все окошки, затем проверь решение</div>
+          <div class="math-stage">
+            <div class="equation-scroller" id="equation-scroller">
+              <div class="equation" aria-label="Пример и поля для решения">
+                <div class="first-factor">
+                  <div class="main-factor" id="factor-a">35</div>
+                  <svg class="branch-arrows" viewBox="0 0 150 48" width="150" height="48" role="presentation" aria-hidden="true">
+                    <path d="M75 2 V17 H36 V42 M75 17 H114 V42" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M30 35 L36 43 L42 35 M108 35 L114 43 L120 35" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <div class="decomposition">
+                    <div class="input-wrap input-tens"><label class="sr-only" for="field-tens">Разрядное слагаемое: десятки</label><input id="field-tens" maxlength="3" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="?" aria-label="Десятки, первое слагаемое"></div>
+                    <span class="decompose-plus" aria-hidden="true">+</span>
+                    <div class="input-wrap input-units"><label class="sr-only" for="field-units">Разрядное слагаемое: единицы</label><input id="field-units" maxlength="3" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="?" aria-label="Единицы, второе слагаемое"></div>
+                  </div>
+                  <div class="factor-note">Разрядные слагаемые</div>
+                </div>
+                <span class="operator">×</span>
+                <span class="operand" id="factor-b">3</span>
+                <span class="operator eq-symbol">=</span>
+                <div class="input-wrap product-input"><label class="sr-only" for="field-tens-product">Произведение десятков</label><input id="field-tens-product" maxlength="3" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="?" aria-label="Произведение десятков"></div>
+                <span class="operator">+</span>
+                <div class="input-wrap product-input"><label class="sr-only" for="field-units-product">Произведение единиц</label><input id="field-units-product" maxlength="3" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="?" aria-label="Произведение единиц"></div>
+                <span class="operator eq-symbol">=</span>
+                <div class="input-wrap answer-input"><label class="sr-only" for="field-total">Окончательный ответ</label><input id="field-total" maxlength="3" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="?" aria-label="Окончательный ответ"></div>
+              </div>
+            </div>
+            <div class="scroll-note">На узком экране схему можно сдвигать в сторону ↔</div>
+          </div>
+          <div id="feedback" class="feedback is-hidden" role="status" aria-live="polite"></div>
+          <div id="hint-panel" class="hint-panel is-hidden" aria-live="polite">
+            <div class="hint-heading">💡 Вспомни алгоритм</div>
+            <ol class="hint-algorithm">
+              <li>Представляю двузначное число в виде суммы разрядных слагаемых.</li>
+              <li>Умножаю каждое слагаемое на однозначное число.</li>
+              <li>Полученные результаты складываю.</li>
+            </ol>
+            <div class="hint-personal"><strong>Подумай над своим примером:</strong><p id="hint-text"></p></div>
+          </div>
+          <div class="task-actions">
+            <button class="btn btn-secondary" id="hint-btn" type="button">💡 Подсказка</button>
+            <button class="btn btn-primary" id="check-btn" type="button">Проверить <span aria-hidden="true">✓</span></button>
+            <button class="btn btn-primary is-hidden" id="next-btn" type="button">Следующий пример <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+        <div class="task-bottom">
+          <button class="text-button" type="button" id="back-btn">← К выбору заданий</button>
+          <div class="support-note">Ошибку можно исправить. Подсказки не содержат готовых ответов.</div>
+        </div>
+      </section>
+
+      <section class="view is-hidden" id="result-view" aria-labelledby="result-title">
+        <div class="card result-card">
+          <div class="result-medal" aria-hidden="true">★</div>
+          <div class="eyebrow">ТРЕНИРОВКА ЗАВЕРШЕНА</div>
+          <h1 id="result-title">Отличная работа!</h1>
+          <p class="result-subtitle">Ты потренировался раскладывать двузначные числа и умножать каждую часть.</p>
+          <div class="result-total"><span id="result-total">10</span><span class="result-total-label">примеров решено</span></div>
+          <div class="stats-grid">
+            <div class="stat"><div class="stat-value" id="result-first">0</div><div class="stat-label">С первой проверки без подсказки</div></div>
+            <div class="stat"><div class="stat-value" id="result-fixed">0</div><div class="stat-label">Исправлено после ошибки</div></div>
+            <div class="stat"><div class="stat-value" id="result-hints">0</div><div class="stat-label">Решено с подсказкой</div></div>
+          </div>
+          <p class="result-note">Каждый пример учитывается только в одной группе. Ошибки — нормальная часть обучения.</p>
+          <button class="btn btn-primary btn-large" id="again-btn" type="button">Новая тренировка <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">Учимся понимать алгоритм, а не угадывать ответ.</footer>
+  </div>
+</body>
+</html>
